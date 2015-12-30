@@ -3,10 +3,9 @@ var ckccApp = angular.module('ckccApp', []);
 ckccApp.controller('ckccController', ['$scope', function($scope){
 
   	$scope.generateList = function() {
-  		$.getJSON('http://shopicruit.myshopify.com/products.json') 
+  		$.getJSON($scope.productURL) 
   		.done(function(data){
-  			console.log(data);
-  			var capacity = 100 * 1000;
+  			var capacity = $scope.capacity * 1000;
   			var item, variant, tempItem;
   			var allProducts = data.products;
   			var products = [];
@@ -33,14 +32,24 @@ ckccApp.controller('ckccController', ['$scope', function($scope){
   				return (parseFloat(a.price)/a.grams) > (parseFloat(b.prise)/b.grams);
   			});
 
+        //Keep adding items to our "desired products" list until we cannot.
+        //All items not included are "left over"
   			for (item in products){
   				if ((capacity - products[item].grams) > 0){
   					capacity -= products[item].grams;
   					desiredProducts.push(products[item]);
-  				}
+  				} else {
+            leftOverProducts.push(products[item]);
+          }
   			}
 
   			$scope.generatedList = desiredProducts;
-  		});
+        $scope.rejectedList = leftOverProducts;
+  		})
+
+      .fail(function (jqxhr, textStatus, error) {
+        var err = textStatus + ", " + error;
+        console.log( "Request Failed: " + err);
+      });
   	};
 }]);

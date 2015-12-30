@@ -9,24 +9,53 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 	</head>
 	<body>
+		<nav class="navbar navbar-default">
+		  <div class="container-fluid">
+		    <div class="navbar-header">
+		      <a class="navbar-brand" href="#">Computer Keyboard Combination Calculator</a>
+		    </div>
+		    <div>
+		      <ul class="nav navbar-nav navbar-right">
+		        <li class="dropdown">
+		          <a class="dropdown-toggle" data-toggle="dropdown" href="#">By Patrick Dang-Ho
+		          <span class="caret"></span></a>
+		          <ul class="dropdown-menu">
+		            <li><a href="http://github.com/patrickdh" target="_blank">Github</a></li>
+		            <li><a href="https://ca.linkedin.com/in/patrickdangho" target="_blank">LinkedIn</a></li>
+		            <li><a href="https://drive.google.com/file/d/0B6RLhkljPjmDV2pJRExPNEZTa3M/view" 
+		            		target="_blank">Resume</a></li> 
+		          </ul>
+		        </li>
+		      </ul>
+		    </div>
+		  </div>
+		</nav>
 		<div class="container">
-			<div class="header clearfix">
-				<h3 class="text-muted">Computer Keyboard Combination Calculator</h3> 
-			</div>
 			<div class="jumbotron" ng-controller="ckccController">
 				<form ng-submit="generateList()">
 				<!-- remember required -->
 					<p> Total Capacity (in kg): 
-					<input type="number" value="100" min="0" ng-model="capacity"></input>
+					<input type="number" value="100" min="0" ng-model="capacity" required></input>
 					</p>
 					<p> URL of Product JSON :
-					<input type="URL" ng-model="productURL" value="http://shopicruit.myshopify.com/products.json"></input>
+					<input type="URL" ng-model="productURL" required></input>
 					</p>
 					<button type="submit">Generate List</button>
 				</form>
-				<tr ng-repeat="item in generatedList">
-			      	<td><b>{{item.title}}</b> (Price: ${{item.price}}, Mass: {{item.grams/1000}}kg)</td>
-			    </tr>
+				<div class="row marketing">
+					<div class="col-lg-6">
+						<h2><u> Included Items </u></h2>
+						<ul class="list-unstyled" ng-repeat="item in generatedList">
+							<li><b>{{item.title}}</b> (Price: ${{item.price}}, Mass: {{item.grams/1000}}kg)</li>
+						</ul>
+					</div>
+					<div class="col-lg-6">
+						<h2><u> Items Not Included </u></h2>
+						<ul class="list-unstyled" ng-repeat="item in rejectedList">
+							<li><b>{{item.title}}</b> (Price: ${{item.price}}, Mass: {{item.grams/1000}}kg)</li>
+						</ul>
+					</div>
+				</div>
 			</div>
 		</div>
 	</body>
