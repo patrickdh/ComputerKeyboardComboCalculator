@@ -1,4 +1,16 @@
 {
-	"name" : "Computer Keyboard Combination Calculator",
-	"version" : "0.0.1"
+  "name": "ComputerKeyboardComboCalculator",
+  "version": "0.0.1",
+  "description": "Calculates the price of keyboards and computers under 100kg",
+  "main": "server.js",
+  "author": "Dat Patrick Dang-Ho",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/patrickdh/ComputerKeyboardComboCalculator.git"
+  },
+  "dependencies": {
+    "body-parser": "^1.14.2",
+    "express": "^4.13.3"
+  }
 }
