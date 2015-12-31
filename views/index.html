@@ -43,7 +43,7 @@
 				</form>
 				<div class="row marketing" id="results">
 					<div class="col-lg-6">
-						<h2><u> Included Items </u></h2>
+						<h2><u> Items Included </u></h2>
 						<ul class="list-unstyled" ng-repeat="item in generatedList">
 							<li><b>{{item.title}}</b> (Price: ${{item.price}}, Mass: {{item.grams/1000}}kg)</li>
 						</ul>
@@ -55,7 +55,9 @@
 						</ul>
 					</div>
 				</div>
-				<h2> {{netWeight}} </h2>
+				<h2> {{leftOverWeight}} </h2>
+				<h2> {{totalWeight}} </h2>
+				<h2> {{totalCost}} </h2>
 			</div>
 		</div>
 	</body>

@@ -7,6 +7,7 @@ ckccApp.controller('ckccController', ['$scope', '$window', function($scope, $win
   		.done(function(data){
         $scope.$apply(function(){
     			var capacity = $scope.capacity * 1000;
+          var cost = 0;
     			var item, variant, tempItem;
     			var allProducts = data.products;
     			var products = [];
@@ -30,7 +31,7 @@ ckccApp.controller('ckccController', ['$scope', '$window', function($scope, $win
 
     			//Sort the products by price-to-mass ratio (in descending order)
     			products.sort(function(a, b){
-    				return (parseFloat(a.price)/a.grams) > (parseFloat(b.prise)/b.grams);
+    				return (parseFloat(a.price)/a.grams) > (parseFloat(b.price)/b.grams);
     			});
 
           //Keep adding items to our "desired products" list until we cannot.
@@ -39,6 +40,7 @@ ckccApp.controller('ckccController', ['$scope', '$window', function($scope, $win
     				if ((capacity - products[item].grams) > 0){
     					capacity -= products[item].grams;
     					desiredProducts.push(products[item]);
+              cost += parseFloat(products[item].price);
     				} else {
               leftOverProducts.push(products[item]);
             }
@@ -46,7 +48,9 @@ ckccApp.controller('ckccController', ['$scope', '$window', function($scope, $win
 
     			$scope.generatedList = desiredProducts;
           $scope.rejectedList = leftOverProducts;
-          $scope.netWeight = "Net Weight: " + capacity/1000 + "kg";
+          $scope.leftOverWeight = "Capacity Left: " + capacity/1000 + "kg";
+          $scope.totalWeight = "Total Weight: " + ($scope.capacity * 1000 - capacity)/1000 + "kg";
+          $scope.totalCost = "Total Cost: $" + cost.toFixed(2);
         });
   		})
 
@@ -56,6 +60,8 @@ ckccApp.controller('ckccController', ['$scope', '$window', function($scope, $win
         $scope.$apply(function(){
           $scope.generatedList = [];
           $scope.rejectedList = [];
+          $scope.netWeight = '';
+          $scope.totalCost = '';
         });
         $window.alert("ERROR - There was a problem reading your json URL.");
       });
